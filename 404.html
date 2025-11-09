@@ -49,13 +49,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 0;
         }
 
         .main-container {
-            min-width: 1440px;
+            width: 100%;
+            max-width: 93.8%;
             margin: 0 auto;
             padding: 16px;
-            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -73,9 +74,10 @@
                 "news news news news news news news news news news news news";
             border: 1px solid var(--border-card);
             border-radius: var(--border-radius);
-            overflow: hidden;
+            overflow: visible;
             background-color: var(--darker-bg-color);
             width: 100%;
+            max-width: 1440px;
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
@@ -135,17 +137,25 @@
         }
 
         h2 {
-            font-size: 24px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             font-weight: 500;
+            margin-bottom: 1rem;
         }
 
         h3 {
-            font-size: 12px;
+            font-size: clamp(0.7rem, 2vw, 0.75rem);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
             color: #888888;
+        }
+
+        .newsletter-content p {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            line-height: 1.6;
+            color: #bbb;
+            text-shadow: 1px 1px 4px #000;
         }
 
         .moon-container {
@@ -160,11 +170,9 @@
             scale: 1.7;
             transform-origin: right center;
             animation: float 15s ease-in-out infinite;
-
         }
 
         .moon-container:after {
-
             content: '';
             position: absolute;
             top: 0;
@@ -176,7 +184,6 @@
         }
 
         @keyframes float {
-
             0%,
             100% {
                 transform: translateY(0) rotate(0deg);
@@ -187,44 +194,150 @@
             }
         }
 
+        /* Tablet styles */
+        @media (max-width: 1024px) {
+            .main-container {
+                padding: 12px;
+            }
+
+            .grid-container {
+                height: 720px;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .newsletter-card {
+                padding: 28px;
+            }
+
+            .moon-container {
+                scale: 1.5;
+                top: -100px;
+                right: -800px;
+            }
+        }
+
+        /* Mobile styles */
         @media (max-width: 768px) {
             :root {
                 --row-height: 250px;
+                --border-radius: 16px;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .main-container {
+                padding: 1px;
+                padding-top: 1px;
+            }
+
+            .grid-container {
+                min-height: 600px;
+                gap: 8px;
+                padding: 18px;
+                overflow: hidden;
             }
 
             .newsletter-card {
                 padding: 24px;
+                overflow: hidden;
             }
 
-            h2 {
-                font-size: 24px;
-                letter-spacing: 0.8px;
+            h3 {
+                letter-spacing: 2px;
+                margin-bottom: 8px;
+            }
+
+            .moon-container {
+                scale: 1.2;
+                top: auto;
+                bottom: -300px;
+                right: -200px;
+                transform-origin: bottom right;
+            }
+
+            .moon-container:after {
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, var(--gradient-end) 60%);
+            }
+        }
+
+        /* Small mobile styles */
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 4px;
+            }
+
+            .grid-container {
+                min-height: 550px;
+                gap: 4px;
+                padding: 4px;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .newsletter-card {
+                padding: 20px;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .newsletter-content p br {
+                display: none;
+            }
+
+            .moon-container {
+                scale: 1.5;
+                bottom: -180px;
+                right: -300px;
+            }
+
+            .moon-container:after {
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, var(--gradient-end) 55%);
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .newsletter-card {
+                padding: 16px;
+            }
+
+            .grid-container {
+                min-height: 500px;
+            }
+
+            .moon-container {
+                scale: 1.2;
+                bottom: -150px;
+                right: -250px;
+            }
+
+            .moon-container:after {
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, var(--gradient-end) 50%);
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="min-h-screen bg-[#0D0D0D] flex items-center justify-center text-center">
-        <div class="main-container">
-            <div class="grid-container">
-                <div class="newsletter-card relative">
-                    <div class="moon-container" id="moon-canvas"></div>
-                    <div class="newsletter-content relative z-10 text-white">
-                        <h3 style="text-shadow: 2px 2px 8px #000; letter-spacing: 3px;">ERROR 404</h3>
-                        <h2 style="text-shadow: 2px 2px 8px #000; font-size: 2rem; margin-bottom: 1rem;">Page Lost in
-                            Orbit</h2>
-                        <p style="text-shadow: 1px 1px 4px #000; color: #bbb; font-size: 1rem; line-height: 1.6;">
-                            You’ve drifted beyond the signal.<br>
-                            Sometimes the best signals hide in the static,<br>
-                            waiting for those who listen differently.
-                        </p>
-                    </div>
+    <div class="main-container">
+        <div class="grid-container">
+            <div class="newsletter-card relative">
+                <div class="moon-container" id="moon-canvas"></div>
+                <div class="newsletter-content relative z-10 text-white">
+                    <h3 style="text-shadow: 2px 2px 8px #000; letter-spacing: 3px;">ERROR 404</h3>
+                    <h2 style="text-shadow: 2px 2px 8px #000;">Page Lost in Orbit</h2>
+                    <p>
+                        You've drifted beyond the signal.<br>
+                        Sometimes the best signals hide in the static,<br>
+                        waiting for those who listen differently.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script src="./assets/js/index/moon.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
