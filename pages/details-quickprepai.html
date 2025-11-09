@@ -1,0 +1,431 @@
+<!-- details.html -->
+<!DOCTYPE html>
+<html lang="en" class="hide-scrollbar">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUICKPREP.AI | SALEEM MALIK PV</title>
+    <meta name="description" content="Lead developer and designer - project - quickprep.ai" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/details.css">
+
+
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="close-button">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </div>
+
+        <div class="project-container">
+            <div class="section">
+                <div class="project-title">
+                    <h1>Quickprep.ai</h1>
+                    <p >
+                        <strong style="font-weight: 500;">Web App</strong> –
+                        <span style="color: #666; letter-spacing: 0.8px;">AI in Education</span> 
+                    </p>
+                </div>
+
+                <div class="project-info-grid">
+                    <div class="project-metadata">
+                        
+                        <div class="metadata-item">
+                            <h3>COMPANY</h3>
+                            <p>Team Project</p>
+                        </div>
+                        <div class="metadata-item">
+                            <h3>MY ROLE</h3>
+                            <p>Team Lead</p>
+                        </div>
+                        <div class="metadata-item">
+                            <h3>TOOLS</h3>
+                            <p>Flask<br>Groq API<br>HTML CSS JS<br>LLama 3.3 70B</p>
+                        </div>
+                        <div class="metadata-item">
+                            <h3>TIMELINE</h3>
+                            <p>2025</p>
+                        </div>
+                    </div>
+
+                    <div class="project-description">
+                        <div class="description-content">
+                            <div class="description-section">
+                                <h3>DESCRIPTION</h3>
+                                <p>Quickprep.ai is an AI-powered web application designed to help teachers generate
+                                    quizzes and track student performance effortlessly. By analyzing uploaded module
+                                    notes, the platform uses large language models to generate multiple-choice questions
+                                    (MCQs), which students can answer online. Teachers can then monitor individual and
+                                    class-wide performance through a dynamic dashboard.</p>
+                            </div>
+                            <div class="description-section">
+                                <h3>CONTEXT</h3>
+                                <p>Creating high-quality MCQs and tracking student understanding can be time-consuming
+                                    for teachers. With Quickprep.ai, we aimed to remove these bottlenecks by using AI to
+                                    automate quiz generation while enabling a streamlined interface for students to test
+                                    themselves and track their progress. This made the learning loop faster, easier, and
+                                    more transparent for both students and teachers.</p>
+                            </div>
+                        </div>
+                        <a href="https://github.com/malik-l0l/Quickprep-ai" class="cta-button" target="_blank">
+                            View on GitHub
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Image -->
+            <div class="section project-image-container">
+                <img src="../assets/img/project-3/1.PNG" alt="Quickprep.ai interface" class="project-image">
+            </div>
+
+            <!-- Challenge Section -->
+            <div class="after-main-section">
+                <div class="section challenge-section">
+                    <h2>Challenge</h2>
+                    <div class="challenge-content">
+                        <p>How might we enable teachers to generate quizzes from existing teaching materials, while also
+                            giving them detailed insights into individual student progress—all with minimal manual work?
+                        </p>
+                        <div class="challenge-points">
+                            <div class="challenge-point">
+                                <div class="point-number">1.</div>
+                                <div class="point-text">Generate well-structured, valid MCQs from raw module notes using
+                                    LLMs.</div>
+                            </div>
+                            <div class="challenge-point">
+                                <div class="point-number">2.</div>
+                                <div class="point-text">Ensure the output adheres to strict JSON schema, despite LLM
+                                    unpredictability.</div>
+                            </div>
+                            <div class="challenge-point">
+                                <div class="point-number">3.</div>
+                                <div class="point-text">Allow students to view quizzes, attempt them, and track
+                                    performance by difficulty level.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Process Section -->
+                <div class="section process-section">
+                    <h2>Process</h2>
+                    <div class="process-content">
+                        <p>The project started with conversations with educators about the pain of creating new
+                            assessments. I explored how LLMs could transform this process. We experimented with several
+                            local and open-source models before settling on a cloud-hosted LLaMA 3.3 model via Groq for
+                            its performance and ease of integration. Based on early feedback from both students and
+                            teachers, we continuously refined the UI and quiz validation logic.</p>
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <div class="step-number">1.</div>
+                                <div class="step-text">Gathered feedback from teachers and students on quiz challenges.
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-number">2.</div>
+                                <div class="step-text">Built PDF-to-MCQ conversion flow with JSON schema enforcement.
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-number">3.</div>
+                                <div class="step-text">Implemented two user roles with clean, functional dashboards.
+                                </div>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-number">4.</div>
+                                <div class="step-text">Iterated interface and difficulty tagging system based on
+                                    classroom usage.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solution Section -->
+                <div class="section solution-section">
+                    <h2>Solution</h2>
+                    <div class="solution-content">
+                        <p>Quickprep.ai offers two distinct interfaces: one for teachers and one for students.</p>
+
+
+
+                        <div class="challenge-points">
+                            <div class="challenge-point">
+                                <div class="point-number">1.</div>
+                                <div class="point-text"><strong>Teachers</strong> can upload module notes, generate MCQs
+                                    via AI, review or edit them, and track individual student performance through a
+                                    detailed dashboard.</div>
+
+                            </div>
+                            <div class="challenge-point">
+                                <div class="point-number">2.</div>
+                                <div class="point-text"><strong>Students</strong> can sign up, take quizzes, and receive
+                                    real-time feedback. Each question is tagged with a difficulty label (easy, medium,
+                                    hard), and students can reattempt quizzes with average score tracking.</div>
+
+                            </div>
+
+                        </div>
+
+
+                        <p style="margin-top: 16px;">The AI-generated questions follow a strict JSON schema, validated
+                            through a custom script. Teachers are not required to craft questions from scratch—just
+                            review and tweak.</p>
+                        <div class="images-gallery-container">
+                            <div class="images-gallery-slide">
+                                <img src="https://placehold.co/600x400?text=Quickprep+Dashboard" alt="Dashboard UI"
+                                    class="gallery-image" id="gallery-slide">
+                            </div>
+                            <div class="gallery-nav-arrow prev">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="gallery-nav-arrow next">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="gallery-navigation" id="gallery-navigation">
+                                <!-- Dots will be generated automatically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Takeaway Section -->
+                <div class="section takeaway-section">
+                    <h2>Takeaway & Reflection</h2>
+                    <div class="takeaway-content">
+                        <p>This project deepened my understanding of LLM integrations and their practical constraints in
+                            educational tools. It also reinforced how thoughtfully applied AI can relieve educators from
+                            repetitive tasks, giving them more time to focus on pedagogy.</p>
+                        <p style="margin-top: 16px;">From a product perspective, it taught me how even simple UIs—when
+                            tuned to user feedback—can powerfully serve both ends of a system: teachers and students.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../assets/js/details/main.js"></script>
+    <script>
+        // Optimized Gallery Slider Implementation
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallerySlide = document.getElementById('gallery-slide');
+            const prevArrow = document.querySelector('.gallery-nav-arrow.prev');
+            const nextArrow = document.querySelector('.gallery-nav-arrow.next');
+
+            // Gallery image URLs - add more images here
+            const galleryUrls = [
+                "../assets/img/project-3/1.PNG",
+                "../assets/img/project-3/8.png",
+                "../assets/img/project-3/2.PNG",
+                "../assets/img/project-3/3.PNG",
+                "../assets/img/project-3/4.PNG",
+                "../assets/img/project-3/5.PNG",
+                "../assets/img/project-3/6.PNG",
+                "../assets/img/project-3/7.PNG",
+                "../assets/img/project-3/9.png",
+            ];
+
+            let currentGalleryIndex = 0;
+            let preloadedImages = [];
+            let isTransitioning = false;
+
+            // Preload all images for instant switching
+            function preloadImages() {
+                galleryUrls.forEach((url, index) => {
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = () => {
+                        console.log(`Image ${index + 1} preloaded successfully`);
+                    };
+                    img.onerror = () => {
+                        console.warn(`Failed to preload image ${index + 1}: ${url}`);
+                    };
+                    preloadedImages[index] = img;
+                });
+            }
+
+            // Auto-generate navigation dots based on gallery length
+            function generateNavigationDots() {
+                const galleryNavigation = document.getElementById('gallery-navigation');
+                if (!galleryNavigation) return;
+                
+                galleryNavigation.innerHTML = ''; // Clear existing dots
+
+                galleryUrls.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'gallery-nav-dot';
+                    dot.setAttribute('data-index', index);
+                    if (index === 0) dot.classList.add('active');
+                    galleryNavigation.appendChild(dot);
+                });
+            }
+
+            // Initialize gallery
+            function initializeGallery() {
+                generateNavigationDots();
+                preloadImages();
+                
+                // Set initial image
+                if (gallerySlide && galleryUrls.length > 0) {
+                    gallerySlide.src = galleryUrls[0];
+                    gallerySlide.alt = `Job Portal Solution 1`;
+                }
+            }
+
+            // Fast update function - no fade delay
+            function updateGallerySlide(index) {
+                if (isTransitioning || index === currentGalleryIndex) return;
+                
+                isTransitioning = true;
+                
+                // Quick opacity transition for smooth effect
+                gallerySlide.style.opacity = '0.7';
+                
+                // Use requestAnimationFrame for smooth transition
+                requestAnimationFrame(() => {
+                    gallerySlide.src = galleryUrls[index];
+                    gallerySlide.alt = `Job Portal Solution ${index + 1}`;
+                    gallerySlide.style.opacity = '1';
+                    
+                    // Update active dot
+                    updateActiveDot(index);
+                    currentGalleryIndex = index;
+                    
+                    // Reset transition flag after a short delay
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 100);
+                });
+            }
+
+            // Separate function to update dots for better performance
+            function updateActiveDot(activeIndex) {
+                const galleryDots = document.querySelectorAll('.gallery-navigation .gallery-nav-dot');
+                galleryDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === activeIndex);
+                });
+            }
+
+            // Set up event listeners after initialization
+            function setupEventListeners() {
+                const galleryDots = document.querySelectorAll('.gallery-navigation .gallery-nav-dot');
+
+                // Dot click events
+                galleryDots.forEach((dot, index) => {
+                    dot.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        updateGallerySlide(index);
+                    });
+                });
+
+                // Arrow click events
+                if (prevArrow) {
+                    prevArrow.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === 0 ? galleryUrls.length - 1 : currentGalleryIndex - 1;
+                        updateGallerySlide(newIndex);
+                    });
+                }
+
+                if (nextArrow) {
+                    nextArrow.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === galleryUrls.length - 1 ? 0 : currentGalleryIndex + 1;
+                        updateGallerySlide(newIndex);
+                    });
+                }
+
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === 0 ? galleryUrls.length - 1 : currentGalleryIndex - 1;
+                        updateGallerySlide(newIndex);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        const newIndex = currentGalleryIndex === galleryUrls.length - 1 ? 0 : currentGalleryIndex + 1;
+                        updateGallerySlide(newIndex);
+                    }
+                });
+            }
+
+            // Auto-rotate functionality
+            let autoRotateInterval;
+
+            function startAutoRotate() {
+                autoRotateInterval = setInterval(() => {
+                    if (!isTransitioning) {
+                        const newIndex = (currentGalleryIndex + 1) % galleryUrls.length;
+                        updateGallerySlide(newIndex);
+                    }
+                }, 5000); // Reduced to 5 seconds for better user experience
+            }
+
+            function stopAutoRotate() {
+                if (autoRotateInterval) {
+                    clearInterval(autoRotateInterval);
+                    autoRotateInterval = null;
+                }
+            }
+
+            // Setup hover events for auto-rotate
+            function setupAutoRotate() {
+                const galleryContainer = document.querySelector('.images-gallery-container');
+                if (galleryContainer) {
+                    galleryContainer.addEventListener('mouseenter', stopAutoRotate);
+                    galleryContainer.addEventListener('mouseleave', startAutoRotate);
+                    
+                    // Start auto-rotate initially
+                    startAutoRotate();
+                }
+            }
+
+            // Initialize everything
+            initializeGallery();
+            
+            // Setup event listeners after a small delay to ensure DOM is ready
+            setTimeout(() => {
+                setupEventListeners();
+                setupAutoRotate();
+            }, 100);
+
+            // Cleanup on page unload
+            window.addEventListener('beforeunload', () => {
+                stopAutoRotate();
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
