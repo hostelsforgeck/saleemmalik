@@ -39,7 +39,7 @@
         }
 
         body {
-            font-family: 'Cal Sans';
+            font-family: 'Cal Sans', sans-serif;
             font-weight: 100;
             background-color: var(--background-color);
             color: var(--foreground-color);
@@ -78,14 +78,6 @@
             background-color: var(--darker-bg-color);
             width: 100%;
             max-width: 1440px;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .grid-container::-webkit-scrollbar {
-            display: none;
-            width: 0;
-            height: 0;
         }
 
         .newsletter-card {
@@ -128,7 +120,7 @@
 
         .newsletter-content {
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         .newsletter-content h2,
@@ -201,7 +193,7 @@
             }
 
             .grid-container {
-                height: 720px;
+                min-height: 720px;
                 gap: 12px;
                 padding: 12px;
             }
@@ -229,15 +221,14 @@
             }
 
             .main-container {
-                padding: 1px;
-                padding-top: 1px;
+                padding: 8px;
             }
 
             .grid-container {
-                min-height: 600px;
+                min-height: 700px;
                 gap: 8px;
                 padding: 18px;
-                overflow: hidden;
+                overflow: visible;
             }
 
             .newsletter-card {
@@ -251,11 +242,12 @@
             }
 
             .moon-container {
-                scale: 1.2;
+                scale: 1.4;
                 top: auto;
-                bottom: -300px;
-                right: -200px;
+                bottom: -180px;
+                right: -100px;
                 transform-origin: bottom right;
+                z-index: 1;
             }
 
             .moon-container:after {
@@ -266,56 +258,73 @@
         /* Small mobile styles */
         @media (max-width: 480px) {
             .main-container {
-                padding: 4px;
+                padding: 6px;
             }
 
             .grid-container {
-                min-height: 550px;
-                gap: 4px;
-                padding: 4px;
-                border-radius: 12px;
-                overflow: hidden;
+                min-height: 700px;
+                gap: 6px;
+                padding: 12px;
+                border-radius: 14px;
             }
 
             .newsletter-card {
                 padding: 20px;
-                border-radius: 12px;
-                overflow: hidden;
+                border-radius: 14px;
             }
 
             .newsletter-content p br {
                 display: none;
             }
 
+            h3 {
+                font-size: 0.65rem;
+                letter-spacing: 2.5px;
+            }
+
             .moon-container {
-                scale: 1.5;
-                bottom: -180px;
-                right: -300px;
+                scale: 1.0;
+                bottom: -290px;
+                right: -0px;
             }
 
             .moon-container:after {
-                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, var(--gradient-end) 55%);
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.16) 0%, var(--gradient-end) 55%);
             }
         }
 
         /* Extra small devices */
         @media (max-width: 360px) {
+            .main-container {
+                padding: 4px;
+            }
+
+            .grid-container {
+                min-height: 700px;
+                padding: 10px;
+            }
+
             .newsletter-card {
                 padding: 16px;
             }
 
-            .grid-container {
-                min-height: 500px;
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            h3 {
+                font-size: 0.6rem;
+                letter-spacing: 2px;
             }
 
             .moon-container {
-                scale: 1.2;
-                bottom: -150px;
-                right: -250px;
+                scale: 1.0;
+                bottom: -210px;
+                right: -0px;
             }
 
             .moon-container:after {
-                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, var(--gradient-end) 50%);
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, var(--gradient-end) 50%);
             }
         }
     </style>
