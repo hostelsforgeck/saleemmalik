@@ -150,14 +150,49 @@
             text-shadow: 1px 1px 4px #000;
         }
 
+        /* Stars container */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: var(--brightness);
+                transform: scale(1.2);
+            }
+        }
+
         .moon-container {
             position: absolute;
             top: -150px;
             right: -1000px;
             width: 100%;
             height: 100%;
-            opacity: 0.8;
-            z-index: 1;
+            opacity: 1;
+            z-index: 5;
             pointer-events: none;
             scale: 1.7;
             transform-origin: right center;
@@ -283,13 +318,15 @@
             }
 
             .moon-container {
-                scale: 1.0;
+                scale: 1.1;
                 bottom: -290px;
                 right: -0px;
+                opacity: 1;
             }
 
             .moon-container:after {
-                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.16) 0%, var(--gradient-end) 55%);
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 30%, rgba(255, 255, 255, 0.06) 50%, var(--gradient-end) 70%);
+                filter: blur(2px);
             }
         }
 
@@ -318,13 +355,15 @@
             }
 
             .moon-container {
-                scale: 1.0;
+                scale: 1.1;
                 bottom: -210px;
-                right: -0px;
+                right: 0px;
+                opacity: 1;
             }
 
             .moon-container:after {
-                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18) 0%, var(--gradient-end) 50%);
+                background: radial-gradient(circle at center, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 30%, rgba(255, 255, 255, 0.07) 50%, var(--gradient-end) 65%);
+                filter: blur(2px);
             }
         }
     </style>
@@ -334,6 +373,7 @@
     <div class="main-container">
         <div class="grid-container">
             <div class="newsletter-card relative">
+                <div class="stars-container" id="stars"></div>
                 <div class="moon-container" id="moon-canvas"></div>
                 <div class="newsletter-content relative z-10 text-white">
                     <h3 style="text-shadow: 2px 2px 8px #000; letter-spacing: 3px;">ERROR 404</h3>
@@ -347,6 +387,39 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            const starCount = 80; // Number of stars
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random animation properties
+                const duration = 2 + Math.random() * 4; // 2-6 seconds
+                const delay = Math.random() * 5; // 0-5 seconds
+                const brightness = 0.3 + Math.random() * 0.7; // 0.3-1.0
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.setProperty('--delay', `${delay}s`);
+                star.style.setProperty('--brightness', brightness);
+                
+                container.appendChild(star);
+            }
+        }
+
+        // Initialize stars when page loads
+        window.addEventListener('DOMContentLoaded', createStars);
+    </script>
 
     <script src="./assets/js/index/moon.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
