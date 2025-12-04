@@ -215,6 +215,54 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+            /* Add this */
+            overflow: hidden;
+            /* Add this */
+        }
+
+        /* Add these new styles for tubes effect */
+        .intro-card #intro-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--border-radius);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            mix-blend-mode: screen;
+            z-index: 1;
+        }
+
+        .intro-card:hover #intro-canvas {
+            opacity: 0.4;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--moon-glow-color) 0%, var(--gradient-end) 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .intro-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Ensure content stays above canvas */
+        .intro-card h1,
+        .intro-card p {
+            position: relative;
+            z-index: 2;
         }
 
         .intro-card h1 {
@@ -1400,6 +1448,7 @@
         <div class="main-container">
             <div class="grid-container">
                 <div class="grid-item intro-card row-1">
+                    <canvas id="intro-canvas"></canvas>
                     <h1>Hi, I'm Saleem –</h1>
                     <p>Lead developer and designer, currently working on <a href="#" class="highlight"
                             style="letter-spacing: 1px;">tabletimes</a>, based in Kerala.</p>
@@ -1691,6 +1740,7 @@
     <script src="./assets/js/index/resume.js"></script>
     <script src="./assets/js/index/stack-scroll.js"></script>
     <script src="./assets/js/index/moon.js"></script>
+    <script src="./assets/js/index/intro-tubes.js" type="module"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
@@ -1700,6 +1750,7 @@
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
 
+    
 
 </body>
 
