@@ -676,6 +676,82 @@ body {
     transform: scale(1.2) rotate(-10deg);
 }
 
+/* Seamless theme-matched tooltip for social icons */
+.social-links {
+    position: relative;
+    z-index: 5;
+}
+
+.social-icon {
+    position: relative;
+}
+
+.social-icon:hover,
+.social-icon:focus-visible {
+    z-index: 30;
+}
+
+.social-icon::after,
+.social-icon::before {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Label */
+.social-icon::after {
+    content: attr(data-tooltip);
+    transform: translate(-50%, -4px);
+    padding: 6px 10px;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    color: hsl(0 0% 90%);
+    background-color: var(--stack-icon-bg);
+    border: 1px solid var(--border-hover);
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+}
+
+/* Arrow */
+.social-icon::before {
+    content: "";
+    top: calc(100% + 5px);
+    transform: translate(-50%, -4px) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background-color: var(--stack-icon-bg);
+    border-left: 1px solid var(--border-hover);
+    border-top: 1px solid var(--border-hover);
+    border-radius: 1px;
+}
+
+.social-icon:hover::after,
+.social-icon:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.social-icon:hover::before,
+.social-icon:focus-visible::before {
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(45deg);
+}
+
+@media (hover: none) {
+
+    .social-icon::after,
+    .social-icon::before {
+        display: none;
+    }
+}
+
 /* Lottie Animation Styles for Social Icons */
 .github-icon .lottie-container,
 .linkedin-icon .lottie-container,
