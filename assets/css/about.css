@@ -56,6 +56,19 @@
     box-sizing: border-box;
 }
 
+/* Theme-matched text selection (replaces the browser's default blue). */
+::selection {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    text-shadow: none;
+}
+
 body {
     font-family: var(--font-family);
     font-weight: 100;
@@ -67,6 +80,43 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* ── Film grain: ultra-subtle monochrome noise over the whole UI for a
+   premium, "designed" material (matches the home page). Fixed,
+   non-interactive, composited on its own layer to avoid page repaints. */
+body::after {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: 100000;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+    will-change: transform;
+    animation: grainShift 0.7s steps(1) infinite;
+}
+
+@keyframes grainShift {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-4%, -4%); }
+    20% { transform: translate(-8%, 4%); }
+    30% { transform: translate(4%, -8%); }
+    40% { transform: translate(-4%, 12%); }
+    50% { transform: translate(-8%, 4%); }
+    60% { transform: translate(12%, 0); }
+    70% { transform: translate(0, 8%); }
+    80% { transform: translate(-12%, 0); }
+    90% { transform: translate(8%, 4%); }
+    100% { transform: translate(4%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::after { animation: none; }
 }
 
 /* Typography */
@@ -130,7 +180,6 @@ a:hover {
 
 .grid-container {
     display: grid;
-
     grid-template-columns: repeat(12, 1fr);
     gap: var(--grid-gap);
     padding: 24px;
@@ -195,7 +244,6 @@ a:hover {
     transform: rotate(90deg);
 }
 
-/* My Story Card */
 .my-story-card {
     grid-area: story;
     padding: var(--card-padding);
@@ -212,10 +260,7 @@ a:hover {
 
 .my-story-card h3 {
     color: hsl(0, 0%, 79%);
-
 }
-
-
 
 .my-story-section {
     margin-bottom: 24px;
@@ -239,7 +284,6 @@ a:hover {
     text-underline-offset: 2px;
 }
 
-/* What I Do Card */
 .what-i-do-card {
     grid-area: what;
     padding: var(--card-padding);
@@ -255,20 +299,75 @@ a:hover {
     margin-bottom: 0;
 }
 
-/* Experience Card */
 .experience-card {
     grid-area: exp;
     padding: var(--card-padding);
+    padding-bottom: 35px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 260px;
+    overflow: hidden;
+}
+
+.experience-card::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom,
+            rgba(var(--card-rgb), 0) 0%,
+            rgba(var(--card-rgb), 0.02) 10%,
+            rgba(var(--card-rgb), 0.08) 20%,
+            rgba(var(--card-rgb), 0.18) 30%,
+            rgba(var(--card-rgb), 0.32) 40%,
+            rgba(var(--card-rgb), 0.5) 50%,
+            rgba(var(--card-rgb), 0.68) 60%,
+            rgba(var(--card-rgb), 0.82) 70%,
+            rgba(var(--card-rgb), 0.92) 80%,
+            rgba(var(--card-rgb), 0.97) 90%,
+            hsl(var(--card)) 100%);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.experience-card::after {
+    content: "Show more";
+    position: absolute;
+    bottom: 22px;
+    right: var(--card-padding);
+    font-size: 13px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    letter-spacing: 0.02em;
+}
+
+.experience-card:hover::after {
+    opacity: 0.9;
 }
 
 .experience-header {
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .experience-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+    /* Slightly reduced gap */
+    flex: 1;
+    position: relative;
+    z-index: 0;
+    max-height: calc(100% - 60px);
+    /* Account for header */
+    /* Ensure it's below the gradient */
 }
 
 .experience-item {
@@ -277,21 +376,231 @@ a:hover {
     align-items: center;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--border-card);
+    transition: none;
 }
 
 .experience-item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
+    padding-bottom: 1rem;
+    /* Keep padding on last item */
+    border-bottom: 1px solid var(--border-card);
+    /* Keep border on last item */
+    margin-bottom: 0;
 }
 
 .experience-position {
     font-size: 18px;
     font-weight: 500;
+    transition: none;
 }
 
 .experience-date {
     color: hsl(var(--muted));
     font-size: 16px;
+    transition: none;
+}
+
+@media (max-width: 768px) {
+    /* ... existing styles ... */
+
+    .experience-card {
+        padding-bottom: 35px;
+    }
+
+    .experience-card::after {
+        right: var(--card-padding);
+        bottom: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* ... existing styles ... */
+
+    .experience-card {
+        padding-bottom: 30px;
+    }
+
+    .experience-card::after {
+        right: var(--card-padding);
+        bottom: 16px;
+    }
+}
+
+/* Experience Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    background-color: hsl(var(--card));
+    border: 1px solid var(--border-card);
+    border-radius: var(--border-radius);
+    width: min(90%, 800px);
+    max-height: 85vh;
+    position: relative;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal-container {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    padding: 32px 32px 24px 32px;
+    border-bottom: 1px solid var(--border-card);
+    position: relative;
+}
+
+.modal-header h1 {
+    margin-bottom: 8px;
+}
+
+.modal-header p {
+    color: hsl(var(--muted));
+    font-size: 16px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--icon-bg);
+    border: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-function);
+
+}
+
+.modal-close:hover {
+    background-color: var(--border-card);
+    transform: scale(1.05);
+}
+
+.modal-close svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+    color: #c4c4c4;
+}
+
+.modal-close:hover svg {
+    transform: rotate(90deg);
+}
+
+.modal-content {
+    padding: 0 32px 32px 32px;
+    max-height: calc(85vh - 120px);
+    overflow-y: auto;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--border-card);
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted));
+}
+
+.experience-detail {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-card);
+}
+
+.experience-detail:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.experience-detail:first-child {
+    padding-top: 32px;
+}
+
+.experience-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.experience-company {
+    font-size: 22px;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    margin-bottom: 4px;
+}
+
+.experience-title {
+    font-size: 18px;
+    color: hsl(var(--muted));
+    font-weight: 400;
+}
+
+.experience-period {
+    background-color: var(--icon-bg);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: hsl(var(--foreground));
+    border: 1px solid var(--border-card);
+    white-space: nowrap;
+}
+
+.experience-bullets {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.experience-bullets li {
+    position: relative;
+    padding-left: 4px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: hsl(var(--muted));
+}
+
+.experience-bullets li::marker {
+    color: hsl(var(--foreground));
+}
+
+.experience-bullets li::before {
+    display: none;
 }
 
 /* Stack Card */
@@ -374,6 +683,51 @@ a:hover {
     transition: all 0.3s ease;
 }
 
+/* Tech stack tooltip (created by stack-scroll.js) — fixed-position
+   wrapper: a rounded rectangle label with an up-arrow poking above it. */
+.stack-tooltip {
+    position: fixed;
+    z-index: 100;
+    transform: translate(-50%, 2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stack-tooltip.visible {
+    opacity: 1;
+    transform: translate(-50%, 6px);
+}
+
+.stack-tooltip-label {
+    position: relative;
+    padding: 6px 10px;
+    white-space: nowrap;
+    font-family: 'Cal Sans';
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    color: hsl(0 0% 90%);
+    background-color: var(--icon-bg);
+    border: 1px solid var(--border-hover);
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+}
+
+.stack-tooltip-arrow {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--icon-bg);
+    border-left: 1px solid var(--border-hover);
+    border-top: 1px solid var(--border-hover);
+    border-radius: 1px;
+    transform: translate(-50%, 0) rotate(45deg);
+}
+
 /* Photo Card */
 .photo-card {
     grid-area: photo;
@@ -433,6 +787,14 @@ a:hover {
     z-index: 2;
     border: 1px solid var(--border-arrow);
     transition: opacity 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.photo-nav-arrow:focus,
+.photo-nav-arrow:focus-visible {
+    outline: none;
 }
 
 .photo-nav-arrow:hover {
@@ -639,9 +1001,10 @@ a:hover {
     }
 
     .experience-item {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
         gap: 0.5rem;
+        justify-content: space-between;
     }
 
     .grid-item {
@@ -654,6 +1017,25 @@ a:hover {
 
     .what-i-do-card {
         height: 200px;
+    }
+
+    .modal-container {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .modal-header {
+        padding: 24px 24px 20px 24px;
+    }
+
+    .modal-content {
+        padding: 0 24px 24px 24px;
+    }
+
+    .experience-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
     }
 }
 
@@ -686,4 +1068,135 @@ a:hover {
     .copy-email {
         width: 100%;
     }
+
+    .modal-header {
+        padding: 20px 20px 16px 20px;
+    }
+
+    .modal-content {
+        padding: 0 20px 20px 20px;
+    }
+
+    .experience-card::after {
+        right: var(--card-padding);
+        bottom: 20px;
+    }
 }
+    
+
+.experience-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+
+.experience-info {
+    flex: 1;
+}
+
+.experience-links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.experience-links {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.experience-link {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: var(--icon-bg);
+    border: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-decoration: none;
+    color: hsl(var(--foreground));
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    gap: 0;
+}
+
+.experience-link:hover {
+    background-color: var(--border-card);
+    border-color: var(--border-hover);
+    padding: 0 12px 0 8px;
+    gap: 6px;
+}
+
+.experience-link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.experience-link-text {
+    font-size: 13px;
+    font-weight: 500;
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.experience-link:hover .experience-link-text {
+    max-width: 100px;
+    opacity: 1;
+}
+
+.experience-link.hidden {
+    display: none;
+}
+
+.experience-period {
+    background-color: var(--icon-bg);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: hsl(var(--foreground));
+    border: 1px solid var(--border-card);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .experience-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .experience-info {
+        width: 100%;
+    }
+
+    .experience-links-wrapper {
+        width: auto;
+        justify-content: flex-start;
+        flex-direction: row-reverse;
+        gap: 6px;
+        align-self: flex-start;
+    }
+
+    .experience-links {
+        flex: 0;
+        justify-content: flex-start;
+    }
+
+    .experience-period {
+        margin-left: 0;
+    }
+}
+    

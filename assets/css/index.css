@@ -56,6 +56,19 @@
     box-sizing: border-box;
 }
 
+/* Theme-matched text selection (replaces the browser's default blue). */
+::selection {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+    text-shadow: none;
+}
+
 body {
     font-family: 'Cal Sans';
     font-weight: 100;
@@ -67,6 +80,80 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* ── Film grain ───────────────────────────────────────────────────────────
+   Ultra-subtle monochrome noise over the entire UI (and the boot screen, since
+   it sits above the preloader) for a premium, "designed" material. Oversized
+   and gently shifted in discrete steps so it flickers like real film grain.
+   Fixed, non-interactive, and composited on its own layer (will-change) so it
+   never triggers a page repaint — safe alongside the WebGL moon. */
+body::after {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: 100000;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+    will-change: transform;
+    animation: grainShift 0.7s steps(1) infinite;
+}
+
+@keyframes grainShift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-4%, -4%);
+    }
+
+    20% {
+        transform: translate(-8%, 4%);
+    }
+
+    30% {
+        transform: translate(4%, -8%);
+    }
+
+    40% {
+        transform: translate(-4%, 12%);
+    }
+
+    50% {
+        transform: translate(-8%, 4%);
+    }
+
+    60% {
+        transform: translate(12%, 0);
+    }
+
+    70% {
+        transform: translate(0, 8%);
+    }
+
+    80% {
+        transform: translate(-12%, 0);
+    }
+
+    90% {
+        transform: translate(8%, 4%);
+    }
+
+    100% {
+        transform: translate(4%, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::after {
+        animation: none;
+    }
 }
 
 .main-container {
@@ -206,6 +293,7 @@ body {
 }
 
 .grid-item:hover {
+    background-color: var(--hover-bg-social-color);
     transform: translateY(-1px);
     border-color: var(--border-hover);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
@@ -341,6 +429,14 @@ body {
 
 .project-card:hover img {
     transform: scale(0.98);
+}
+
+/* Image-filled cards keep their background on hover: the scaling image would
+   otherwise reveal the darkened frame around it, which looks off. The hover
+   color shift is meant for the text cards only. */
+.project-card:hover,
+.photo-card:hover {
+    background-color: var(--card-bg-color);
 }
 
 .project-info {
@@ -542,6 +638,7 @@ body {
 }
 
 .grid-item.stack-card:hover {
+    background-color: var(--hover-bg-social-color);
     transform: translateY(-1px);
     border-color: var(--border-hover);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
@@ -1204,6 +1301,14 @@ a {
 
 a:hover {
     opacity: 0.8;
+}
+
+/* The PROJECTS card is wrapped in an <a>, so the global a:hover opacity dim
+   would fade the whole card's text + arrow (unlike the ABOUT card, which uses
+   onclick). Keep the card-wrapping link at full opacity so its hover matches
+   the other cards. */
+.grid-container > a:hover {
+    opacity: 1;
 }
 
 .highlight {
