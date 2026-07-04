@@ -644,6 +644,51 @@
             transition: all 0.3s ease;
         }
 
+        /* Tech stack tooltip (created by stack-scroll.js) — fixed-position
+           wrapper: a rounded rectangle label with an up-arrow poking above it. */
+        .stack-tooltip {
+            position: fixed;
+            z-index: 100;
+            transform: translate(-50%, 2px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stack-tooltip.visible {
+            opacity: 1;
+            transform: translate(-50%, 6px);
+        }
+
+        .stack-tooltip-label {
+            position: relative;
+            padding: 6px 10px;
+            white-space: nowrap;
+            font-family: 'Cal Sans';
+            font-size: 12px;
+            line-height: 1;
+            letter-spacing: 0.3px;
+            color: hsl(0 0% 90%);
+            background-color: var(--icon-bg);
+            border: 1px solid var(--border-hover);
+            border-radius: 8px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+        }
+
+        .stack-tooltip-arrow {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background-color: var(--icon-bg);
+            border-left: 1px solid var(--border-hover);
+            border-top: 1px solid var(--border-hover);
+            border-radius: 1px;
+            transform: translate(-50%, 0) rotate(45deg);
+        }
+
         /* Photo Card */
         .photo-card {
             grid-area: photo;
@@ -703,6 +748,14 @@
             z-index: 2;
             border: 1px solid var(--border-arrow);
             transition: opacity 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .photo-nav-arrow:focus,
+        .photo-nav-arrow:focus-visible {
+            outline: none;
         }
 
         .photo-nav-arrow:hover {
