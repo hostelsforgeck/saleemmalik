@@ -9,7 +9,7 @@ const MOON_CONFIG = {
 
 // Preload texture immediately (before DOMContentLoaded)
 const moonTexture = new Image();
-moonTexture.src = 'assets/img/moon/moon.png';
+moonTexture.src = 'assets/img/moon/moon.webp';
 
 document.addEventListener("DOMContentLoaded", function() {
   new class {

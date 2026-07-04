@@ -8,13 +8,13 @@
     <meta name="description" content="Lead developer and designer" />
     <meta name="inspiration" content="This project is inspired by Bentox by tamer" />
 
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Critical images only -->
-    <link rel="preload" as="image" href="assets/img/moon/moon.png">
-    <link rel="preload" as="image" href="./assets/img/me_img/me.jpg">
+    <!-- Critical above-the-fold image -->
+    <link rel="preload" as="image" href="./assets/img/me_img/me.jpg" fetchpriority="high">
 
     <!-- Font with display swap for faster render -->
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
@@ -32,12 +32,15 @@
                 <div class="grid-item intro-card row-1">
                     <canvas id="intro-canvas"></canvas>
                     <h1>Hi, I'm Saleem –</h1>
-                    <p>Lead developer and designer, currently working on <a href="#" class="highlight"
-                            style="letter-spacing: 1px;">talk2.ai</a>, based in Kerala.</p>
+                    <p>Lead developer and designer, currently working on
+                         <a href="https://talk2ai-beta.vercel.app/" target="_blank" class="highlight" style="letter-spacing: 1px;">
+                            talk2.ai
+                        </a>
+                        , based in Kerala.</p>
                 </div>
 
                 <div class="grid-item project-card mobile-project row-1">
-                    <a href="./pages/details-nestclub.html">
+                    <a href="/nestclub">
                         <img src="./assets/img/project_img/project-1.png" alt="Mobile app project" loading="lazy" />
                         <div class="project-info">
                             <div class="project-title" style="text-shadow: 0 0 3px #000, 0 0 8px #000;">Nestclub</div>
@@ -55,7 +58,7 @@
                 </div>
 
                 <div class="grid-item project-card app-design-project row-1">
-                    <a href="./pages/details-tabletimes.html">
+                    <a href="/tabletimes">
                         <img src="./assets/img/project_img/project-2.png" alt="App design project" loading="lazy" />
                         <div class="project-info">
                             <div class="project-title" style="   text-shadow: 0 0 3px #000, 0 0 8px #000;"> tabletimes
@@ -129,7 +132,7 @@
                     <img src="./assets/img/me_img/me.jpg" alt="Profile photo" />
                 </div>
 
-                <div class="grid-item about-card row-2" onclick="window.location='./pages/about.html'"
+                <div class="grid-item about-card row-2" onclick="window.location='/about'"
                     style="cursor: pointer;">
                     <div class="about-content">
                         <div>
@@ -147,7 +150,7 @@
                 </div>
 
                 <div class="grid-item project-card wide row-2">
-                    <a href="./pages/details-quickprepai.html">
+                    <a href="/quickprepai">
                         <img src="./assets/img/project_img/project-3.png" alt="Laptop project" loading="lazy" />
                         <div class="project-info">
                             <div class="project-title" style="text-shadow: 0 0 3px #000, 0 0 8px #000;">Quickprep.ai
@@ -168,7 +171,7 @@
                 </div>
 
                 <!-- Resources card HTML -->
-                <a href="./pages/projects.html">
+                <a href="/projects">
                     <div class="grid-item resources-card row-2">
 
                         <div>
