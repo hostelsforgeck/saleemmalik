@@ -603,6 +603,51 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Tech stack tooltip — fixed-position element (escapes carousel overflow),
+   styled to exactly match the social-icon tooltip. */
+.stack-tooltip {
+    position: fixed;
+    z-index: 100;
+    transform: translate(-50%, 6px);
+    padding: 6px 10px;
+    white-space: nowrap;
+    font-family: 'Cal Sans';
+    font-size: 12px;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    color: hsl(0 0% 90%);
+    background-color: var(--stack-icon-bg);
+    border: 1px solid var(--border-hover);
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Arrow — matches social tooltip: sits BEHIND the label (z-index:-1) so the
+   label's border stays unbroken and the arrow pokes 5px above it. */
+.stack-tooltip::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    z-index: -1;
+    width: 8px;
+    height: 8px;
+    background-color: var(--stack-icon-bg);
+    border-left: 1px solid var(--border-hover);
+    border-top: 1px solid var(--border-hover);
+    border-radius: 1px;
+    transform: translate(-50%, 0) rotate(45deg);
+}
+
+.stack-tooltip.visible {
+    opacity: 1;
+    transform: translate(-50%, 10px);
+}
+
 .toggle-card {
     grid-area: toggle;
     display: flex;
@@ -1434,6 +1479,56 @@ a:hover {
 
 .like-button:hover {
     transform: scale(1.05);
+}
+
+/* Idle "like me!" attention pulse — a soft, organic double-swell heartbeat
+   with a faint glow. Every segment eases in and out (per-keyframe timing
+   functions) so the motion breathes rather than thumps. Starts and ends at
+   rest (scale 1, no glow) so it never fights the button's hover/inline
+   transforms. Driven by like-attention.js, which only adds .pulsing while the
+   button is idle, unliked and on-screen. */
+.like-button.pulsing {
+    animation: likeAttention 1.3s ease-in-out both;
+    transform-origin: center;
+    will-change: transform, filter;
+}
+
+@keyframes likeAttention {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+        animation-timing-function: cubic-bezier(0.34, 0, 0.36, 1);
+    }
+
+    22% {
+        transform: scale(1.11);
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.32));
+        animation-timing-function: cubic-bezier(0.64, 0, 0.66, 1);
+    }
+
+    40% {
+        transform: scale(1.01);
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.06));
+        animation-timing-function: cubic-bezier(0.34, 0, 0.36, 1);
+    }
+
+    58% {
+        transform: scale(1.075);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+    }
+}
+
+/* Never animate for users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    .like-button.pulsing {
+        animation: none;
+    }
 }
 
 .heart-container,
