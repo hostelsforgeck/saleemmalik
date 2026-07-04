@@ -27,7 +27,6 @@
     --border-card: rgba(255, 255, 255, 0.05);
     --border-hover: rgba(255, 255, 255, 0.15);
 
-
     --secondary-text-color: #888888;
 
     --card-bg-color: #121212;
@@ -83,77 +82,20 @@ body {
 }
 
 /* ── Film grain ───────────────────────────────────────────────────────────
-   Ultra-subtle monochrome noise over the entire UI (and the boot screen, since
-   it sits above the preloader) for a premium, "designed" material. Oversized
-   and gently shifted in discrete steps so it flickers like real film grain.
-   Fixed, non-interactive, and composited on its own layer (will-change) so it
-   never triggers a page repaint — safe alongside the WebGL moon. */
+   Ultra-subtle static monochrome noise over the entire UI (and the boot
+   screen, since it sits above the preloader) for a premium, "designed"
+   material. Fixed and non-interactive; painted once with zero ongoing cost —
+   no animation, so it never keeps the compositor awake (smooth alongside the
+   WebGL moon, easy on battery). */
 body::after {
     content: "";
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    inset: 0;
     z-index: 100000;
     pointer-events: none;
     opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
     background-size: 160px 160px;
-    will-change: transform;
-    animation: grainShift 0.7s steps(1) infinite;
-}
-
-@keyframes grainShift {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    10% {
-        transform: translate(-4%, -4%);
-    }
-
-    20% {
-        transform: translate(-8%, 4%);
-    }
-
-    30% {
-        transform: translate(4%, -8%);
-    }
-
-    40% {
-        transform: translate(-4%, 12%);
-    }
-
-    50% {
-        transform: translate(-8%, 4%);
-    }
-
-    60% {
-        transform: translate(12%, 0);
-    }
-
-    70% {
-        transform: translate(0, 8%);
-    }
-
-    80% {
-        transform: translate(-12%, 0);
-    }
-
-    90% {
-        transform: translate(8%, 4%);
-    }
-
-    100% {
-        transform: translate(4%, 0);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    body::after {
-        animation: none;
-    }
 }
 
 .main-container {
@@ -688,11 +630,20 @@ body::after {
     background: linear-gradient(to left, var(--stack-gradient-start), var(--stack-gradient-end));
 }
 
+/* On hover the card darkens, so re-tint the scrolling-strip edge fades to the
+   hovered background color (~--darker-bg-color) so they keep blending in. */
+.grid-item.stack-card:hover .stack-container::before {
+    background: linear-gradient(to right, var(--darker-bg-color), rgba(13, 13, 13, 0));
+}
+
+.grid-item.stack-card:hover .stack-container::after {
+    background: linear-gradient(to left, var(--darker-bg-color), rgba(13, 13, 13, 0));
+}
+
 .stack-icons-scroll {
     display: flex;
     gap: 16px;
     position: absolute;
-    will-change: transform;
 }
 
 .stack-icon {
@@ -787,7 +738,6 @@ body::after {
     align-items: center;
     cursor: grabbing;
 }
-
 
 .social-links {
     grid-area: social;
@@ -941,7 +891,6 @@ body::after {
     transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-
 .github-icon:hover .lottie-container,
 .linkedin-icon:hover .lottie-container,
 .dribbble-icon:hover .lottie-container,
@@ -980,7 +929,6 @@ body::after {
     vector-effect: non-scaling-stroke;
     stroke-width: 1 !important;
 }
-
 
 .resources-card {
     grid-area: res;
@@ -1173,7 +1121,6 @@ body::after {
 .contact-card:hover::before {
     opacity: 1;
 }
-
 
 @keyframes ripple {
     0% {
@@ -1411,8 +1358,6 @@ a:hover {
         display: block;
     }
 
-
-
     .toggle-card {
         display: block;
         align-items: center;
@@ -1600,11 +1545,6 @@ a:hover {
 .moon-container {
     animation: float 15s ease-in-out infinite;
 }
-
-
-
-
-
 
 .like-button {
     display: flex;
