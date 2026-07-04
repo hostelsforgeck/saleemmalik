@@ -104,6 +104,35 @@ body {
     height: 0;
 }
 
+/* ── Bento stagger-in reveal ──────────────────────────────────────────────
+   Plays when the preloader hands off to the site (armed + triggered by
+   preloader.js). Overrides the default per-card fade so all cells rise in
+   together along a diagonal (top-left → bottom-right), with per-cell delays
+   set inline from each card's position. Only armed when the preloader
+   actually runs; on a skipped (once-per-session) load the normal .grid-item
+   fade below plays instead. */
+.grid-container.bento-armed > * {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: none !important;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.grid-container.bento-armed.bento-reveal > * {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .grid-container.bento-armed>*,
+    .grid-container.bento-armed.bento-reveal>* {
+        transition-duration: 0.001ms;
+        transform: none;
+    }
+}
+
 .grid-item {
     background-color: var(--card-bg-color);
     border-radius: var(--border-radius);

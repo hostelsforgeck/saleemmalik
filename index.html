@@ -8,6 +8,124 @@
     <meta name="description" content="Lead developer and designer" />
     <meta name="inspiration" content="This project is inspired by Bentox by tamer" />
 
+    <!-- Preloader: skip if already shown this browser session (runs before paint, so no flash) -->
+    <script>
+        if (sessionStorage.getItem('preloaded') === '1') {
+            document.documentElement.classList.add('preloaded');
+        }
+    </script>
+
+    <!-- Preloader critical styles (inlined so the boot screen appears instantly) -->
+    <style>
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 26px;
+            background: #0D0D0D;
+            opacity: 1;
+            transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+        }
+
+        /* Thin outer frame matching the site's .grid-container border exactly.
+           Its position/size is measured from the real grid by preloader.js and
+           fed in via the --frame-* variables, so the boot frame lines up with
+           the page frame on all four sides (the grid is centered, not full
+           height). Fallbacks keep a sane frame if JS hasn't run yet. */
+        #preloader::before {
+            content: "";
+            position: absolute;
+            top: var(--frame-top, 16px);
+            left: var(--frame-left, 16px);
+            width: var(--frame-width, calc(100% - 32px));
+            height: var(--frame-height, calc(100% - 32px));
+            box-sizing: border-box;
+            border: 1px solid var(--border-card, rgba(255, 255, 255, 0.05));
+            border-radius: var(--border-radius, 20px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #preloader.frame-ready::before {
+            opacity: 1;
+        }
+
+        html.preloaded #preloader {
+            display: none !important;
+        }
+
+        #preloader.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        body.preloading {
+            overflow: hidden;
+        }
+
+        .preloader-name {
+            font-family: 'Cal Sans', sans-serif;
+            font-size: 15px;
+            letter-spacing: 4px;
+            /* letter-spacing adds a trailing gap after the last letter, which
+               pushes the text off-center; text-indent cancels it out. */
+            text-indent: 4px;
+            text-transform: uppercase;
+            color: #c4c4c4;
+            opacity: 0.92;
+            animation: preloaderFadeIn 0.8s ease both;
+        }
+
+        /* MacBook-style bar: an outlined pill that fills from the inside. */
+        .preloader-bar {
+            width: 180px;
+            height: 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .preloader-bar-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: 3px;
+            background: #c4c4c4;
+            transition: width 0.2s ease;
+        }
+
+        @keyframes preloaderFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 0.92;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .preloader-name {
+                animation: none;
+            }
+
+            #preloader {
+                transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+            }
+        }
+    </style>
+
+    <!-- Preloader controller -->
+    <script defer src="./assets/js/index/preloader.js"></script>
+
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
@@ -24,6 +142,14 @@
 
 
 <body>
+    <!-- MacBook-style preloader: full name + a bordered progress bar that fills as assets load -->
+    <div id="preloader">
+        <div class="preloader-name">SALEEM MALIK PV</div>
+        <div class="preloader-bar">
+            <div class="preloader-bar-fill"></div>
+        </div>
+    </div>
+
     <div class="min-h-screen bg-[#0D0D0D]">
         <div class="main-container">
             <div class="grid-container">
