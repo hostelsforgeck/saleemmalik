@@ -8,14 +8,17 @@
     <meta name="description" content="Lead developer and designer" />
     <meta name="inspiration" content="This project is inspired by Bentox by tamer" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="preload" as="image" href="assets/img/moon/moon.png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cal-sans-latin.woff2" crossorigin>
 
     <style>
+        @font-face {
+            font-family: 'Cal Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/assets/fonts/cal-sans-latin.woff2') format('woff2');
+        }
+
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;

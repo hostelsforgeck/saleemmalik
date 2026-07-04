@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Cal Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/assets/fonts/cal-sans-latin.woff2') format('woff2');
+}
+
 .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;

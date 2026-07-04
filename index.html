@@ -10,14 +10,12 @@
 
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Critical above-the-fold image -->
     <link rel="preload" as="image" href="./assets/img/me_img/me.jpg" fetchpriority="high">
 
-    <!-- Font with display swap for faster render -->
-    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+    <!-- Self-hosted font (no Google Fonts round-trip); @font-face is in index.css -->
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cal-sans-latin.woff2" crossorigin>
     
     <!-- External CSS -->
     <link rel="stylesheet" href="./assets/css/index.css">
