@@ -961,36 +961,74 @@ body::after {
     position: absolute;
     bottom: 32px;
     right: 32px;
-    width: 40px;
     height: 40px;
-    border-radius: 50%;
+    padding: 0 8px;
+    border-radius: 20px;
     background-color: var(--arrow-inside-color);
     border: 1px solid var(--border-arrow);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: box-shadow 0.2s ease,
+        border-radius 0.22s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 .arrow-icon svg {
+    flex-shrink: 0;
     transform: rotate(-45deg);
-    transition: all 0.3s ease;
+    transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
+.arrow-label {
+    display: inline-block;
+    max-width: 0;
+    opacity: 0;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #fff;
+    overflow: hidden;
+    transform: translateX(4px);
+    transition: max-width 0.22s cubic-bezier(0.2, 0.9, 0.3, 1),
+        opacity 0.16s ease,
+        margin 0.22s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* Reveal the pill + label so users know the card is clickable */
+.about-card:hover .arrow-icon,
 .resources-card:hover .arrow-icon {
-    transform: rotateY(15deg) rotateX(5deg);
+    border-radius: 14px;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
 }
 
+.about-card:hover .arrow-icon svg,
 .resources-card:hover .arrow-icon svg {
-    transform: rotateY(15deg) rotateX(5deg);
+    transform: rotate(0deg);
 }
 
-.about-card:hover .arrow-icon {
-    transform: rotateY(15deg) rotateX(5deg);
+.about-card:hover .arrow-label,
+.resources-card:hover .arrow-label {
+    max-width: 90px;
+    opacity: 1;
+    margin-left: 4px;
+    margin-right: 8px;
+    transform: translateX(0);
 }
 
-.about-card:hover .arrow-icon svg {
-    transform: rotateY(15deg) rotateX(5deg);
+@media (prefers-reduced-motion: reduce) {
+
+    .arrow-icon,
+    .arrow-icon svg,
+    .arrow-label {
+        transition-duration: 0.01ms;
+    }
 }
 
 .resources-card::after {

@@ -76,55 +76,60 @@
     const MAX_DURATION = 9000;  // ms — safety net so a hung resource can't trap the user
     const startTime = performance.now();
 
-    let progress = 0;
     let loaded = false;
     let finished = false;
+    let hideStarted = false;
 
-    function setProgress(value) {
-        progress = Math.min(100, Math.max(progress, value));
-        if (fill) fill.style.width = progress + "%";
-    }
-
-    // Fill to 90% across the minimum window with an ease-out curve — quick to
-    // build confidence, then gently decelerating as it settles (the way a
-    // MacBook boot bar feels) — and hold there until the page is loaded.
-    // Time-based (not step-based) so the pace is identical whether the load is
-    // instant or slow.
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-    const ticker = setInterval(function () {
-        const t = Math.min(1, (performance.now() - startTime) / MIN_DURATION);
-        setProgress(easeOutCubic(t) * 90);
-    }, 50);
 
-    function finish() {
-        if (finished) return;
-        finished = true;
+    let displayed = 0;
 
-        clearInterval(ticker);
-        setProgress(100);
+    function frame() {
+        let target;
+        if (finished) {
+            target = 100;
+        } else {
+            const t = Math.min(1, (performance.now() - startTime) / MIN_DURATION);
+            target = easeOutCubic(t) * 90;
+        }
 
-        // Let the bar visibly reach 100% before fading the screen away, then
-        // stagger the bento cards in as the black dissolves.
-        setTimeout(function () {
-            preloader.classList.add("hide");
-            document.body.classList.remove("preloading");
-            revealBento();
-            try {
-                sessionStorage.setItem("preloaded", "1");
-            } catch (e) {
-                /* private mode / storage disabled — just skip persistence */
-            }
-        }, 360);
+        displayed += (target - displayed) * 0.09;
+        if (target - displayed < 0.05) displayed = target;
 
-        // Remove the node after the fade transition completes.
+        if (fill) fill.style.transform = "scaleX(" + (displayed / 100) + ")";
+
+        if (finished && displayed >= 100) {
+            startHide();
+            return;
+        }
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    function startHide() {
+        if (hideStarted) return;
+        hideStarted = true;
+
+        preloader.classList.add("hide");
+        document.body.classList.remove("preloading");
+        revealBento();
+        try {
+            sessionStorage.setItem("preloaded", "1");
+        } catch (e) {
+            /* private mode / storage disabled — just skip persistence */
+        }
+
         setTimeout(function () {
             if (preloader && preloader.parentNode) {
                 preloader.parentNode.removeChild(preloader);
             }
-        }, 360 + 700);
+        }, 700);
     }
 
-    // Finish only once the page is loaded AND the minimum time has passed.
+    function finish() {
+        finished = true;
+    }
+
     function maybeFinish() {
         if (!loaded) return;
         const remaining = MIN_DURATION - (performance.now() - startTime);
