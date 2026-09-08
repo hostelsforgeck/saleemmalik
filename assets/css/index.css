@@ -22,7 +22,6 @@
     --background-color: hsl(0 0% 5%);
     --foreground-color: hsl(0 0% 77%);
     --arrow-inside-color: hsl(0 0% 10%);
-    --arrow-hover-color: hsl(0 0% 13%);
 
     --border-arrow: rgba(255, 255, 255, 0.1);
     --border-card: rgba(255, 255, 255, 0.05);
@@ -958,10 +957,11 @@ body::after {
     line-height: 1.3;
 }
 
-.arrow-icon {
-    position: absolute;
-    bottom: 32px;
-    right: 32px;
+/* One pill control, three uses: the ABOUT and PROJECTS card pills and the
+   resume button share the shell, the arrow and the hover/press choreography.
+   The only difference is that the resume label never collapses. */
+.arrow-icon,
+.view-resume-btn {
     height: 40px;
     padding: 0 8px;
     border-radius: 20px;
@@ -975,31 +975,46 @@ body::after {
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0px 4px 8px var(--shadow-color);
     transition: box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
         border-radius 0.32s cubic-bezier(0.4, 0, 0.2, 1),
         border-color 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-        background-color 0.32s cubic-bezier(0.4, 0, 0.2, 1),
         transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.arrow-icon svg {
-    flex-shrink: 0;
-    transform: rotate(-45deg);
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+/* The card pills park in the card's bottom-right corner; the resume button
+   sits in normal flow (see .view-resume-btn below). */
+.arrow-icon {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
 }
 
-.arrow-label {
+/* Rests pointing north-east, swings to east on hover. */
+.arrow-icon svg,
+.view-resume-btn .btn-arrow {
+    flex-shrink: 0;
+    transform: rotate(-45deg);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease;
+}
+
+.arrow-label,
+.view-text {
     display: inline-block;
-    max-width: 0;
-    opacity: 0;
-    margin-left: 0;
-    margin-right: 0;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.01em;
     color: #fff;
     overflow: hidden;
+}
+
+/* Card labels stay collapsed until the card is hovered. */
+.arrow-label {
+    max-width: 0;
+    opacity: 0;
+    margin-left: 0;
+    margin-right: 0;
     transform: translateX(4px);
     transition: max-width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
         opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1),
@@ -1007,18 +1022,25 @@ body::after {
         transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* The resume label is always out, at exactly the spacing the card labels
+   settle into once revealed. */
+.view-text {
+    margin-left: 4px;
+    margin-right: 8px;
+}
+
 .about-card:hover .arrow-icon,
-.resources-card:hover .arrow-icon {
+.resources-card:hover .arrow-icon,
+.contact-card:hover .view-resume-btn {
     border-radius: 14px;
     transform: translateY(-2px);
-    background-color: var(--arrow-hover-color);
-    border-color: var(--border-hover);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border-color: var(--border-hover-color);
+    box-shadow: 0px 6px 12px var(--shadow-color-hover);
 }
 
 .about-card:hover .arrow-icon svg,
-.resources-card:hover .arrow-icon svg {
+.resources-card:hover .arrow-icon svg,
+.contact-card:hover .view-resume-btn .btn-arrow {
     transform: rotate(0deg);
 }
 
@@ -1038,12 +1060,14 @@ body::after {
     max-width: 54px;
 }
 
+/* Press-in is quicker than the release so the pill tracks the cursor down
+   and eases back up; the shadow contracts as it settles onto the card. */
 .about-card:active .arrow-icon,
-.resources-card:active .arrow-icon {
+.resources-card:active .arrow-icon,
+.contact-card:active .view-resume-btn {
     transform: translateY(0) scale(0.96);
-    background-color: var(--arrow-inside-color);
     border-color: var(--border-arrow);
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.55);
+    box-shadow: 0px 2px 4px var(--shadow-color);
     transition-duration: 0.1s;
 }
 
@@ -1062,6 +1086,8 @@ body::after {
     opacity: 1;
 }
 
+/* Clickable as a whole, like the ABOUT and PROJECTS cards — the pill is the
+   cue for the card, not the only hit target. */
 .contact-card {
     width: 100%;
     padding: 32px;
@@ -1073,6 +1099,7 @@ body::after {
     border: 1px solid var(--border-card);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .contact-card h3 {
@@ -1092,51 +1119,34 @@ body::after {
     line-height: 1.3;
 }
 
+/* Shell, hover and press all come from the shared pill rules above; this only
+   takes the pill out of the cards' absolute corner and sizes it to its label,
+   which — unlike the card pills — is always showing. Sits flush with the card's
+   right padding, lining up with the ABOUT / PROJECTS pills. */
 .view-resume-btn {
-    background-color: var(--arrow-inside-color);
-    border: 1px solid var(--border-arrow);
-    border-radius: 12px;
-    padding: 16px 24px;
-    font-size: 16px;
-    color: var(--foreground-color);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    width: 100%;
-    max-width: 220px;
     position: relative;
-    overflow: hidden;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    width: fit-content;
+    margin-left: auto;
+    margin-top: auto;
+    flex-shrink: 0;
+    font-family: inherit;
+    /* The label swap ("View Resume" -> "Viewed Resume") changes the pill's
+       width, which otherwise snaps mid-fade while the label is invisible.
+       Keyword sizes only interpolate with this opt-in; browsers without it
+       fall back to the snap. */
+    interpolate-size: allow-keywords;
+    transition: box-shadow 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+        border-radius 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.view-resume-btn svg {
-    color: var(--foreground-color);
-}
-
-.view-resume-btn svg path {
-    stroke: var(--foreground-color);
-}
-
-.view-resume-btn:hover {
-    background-color: var(--hover-bg-social-color);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-color: var(--border-hover);
-}
-
-.view-resume-btn:active {
-    transform: translateY(0);
-}
-
+/* No gap — the label carries the spacing on both sides of the arrow. */
 .button-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
     position: relative;
     z-index: 2;
 }
@@ -1222,44 +1232,33 @@ body::after {
     animation: fadeSlideIn 0.3s forwards;
 }
 
+/* Fixed slot the size of the card pills' arrow, so the two icons can stack
+   absolutely and cross-fade in place without shifting the label. */
 .icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 20px;
-    width: 20px;
-    color: var(--foreground-color);
+    position: relative;
+    height: 24px;
+    width: 24px;
 }
 
-.eye-open,
-.eye-closed,
+.btn-arrow,
 .check-mark {
     position: absolute;
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.eye-closed {
+.btn-arrow {
     opacity: 1;
-}
-
-.eye-open {
-    opacity: 0;
 }
 
 .check-mark {
     opacity: 0;
+    transition: opacity 0.3s ease,
+        transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.view-resume-btn:hover .eye-closed {
-    opacity: 0;
-}
-
-.view-resume-btn:hover .eye-open {
-    opacity: 1;
-}
-
-.view-resume-btn.clicked .eye-closed,
-.view-resume-btn.clicked .eye-open {
+.view-resume-btn.clicked .btn-arrow {
     opacity: 0;
 }
 
@@ -1435,30 +1434,24 @@ a:hover {
         margin-bottom: 12%;
     }
 
+    /* Bottom padding matches the 24px the card pills are inset by, so the
+       resume pill lands on the same line as the ABOUT / PROJECTS ones. */
     .contact-card {
-        padding: 28px 24px 32px 24px;
+        padding: 28px 24px 24px 24px;
         display: flex;
         flex-direction: column;
         gap: 20px;
         max-height: 230px;
     }
 
+    /* Only a minimum gap — the pill's auto top margin owns the real spacing.
+       A fixed 20px here would push the pill out of the card's max-height once
+       the heading wraps to three lines on a narrow phone. */
     .contact-card h2 {
         font-size: 22px;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         line-height: 1.4;
         max-width: 100%;
-    }
-
-    .view-resume-btn {
-        padding: 18px 24px;
-        font-size: 16px;
-        width: 100%;
-        max-width: none;
-        border-radius: 14px;
-        font-weight: 500;
-        letter-spacing: 0.3px;
-        min-height: 56px;
     }
 
     .contact-card>div:first-child {

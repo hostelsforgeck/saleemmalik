@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
             let isClicked = false;
             let resetTimer;
 
-            viewResumeBtn.addEventListener('click', function () {
+            // The whole card is the target, like the ABOUT and PROJECTS cards —
+            // the pill is its cue. Clicks on the button itself bubble up here,
+            // and the ripple/check state still plays on the pill.
+            const contactCard = document.getElementById('contact-card') || viewResumeBtn;
+
+            contactCard.addEventListener('click', function () {
                 if (isClicked) return;
                 isClicked = true;
 
@@ -26,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     resetTimer = setTimeout(resetButton, resetTimeout);
 
                     // Optional: open resume in new tab
-                    window.open('https://drive.google.com/file/d/1tqXNeDN8Bzqjjm33D_9EYUB73N6XvWw9/view?usp=sharing', '_blank');
+                    window.open('https://flyn.co/saleem_malik_resume', '_blank');
                 }, 200);
             });
 

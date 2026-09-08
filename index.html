@@ -358,7 +358,7 @@
                     </div>
                 </div>
 
-                <div class="grid-item contact-card row-3">
+                <div class="grid-item contact-card row-3" id="contact-card">
                     <div>
                         <h3>RESUME</h3>
                         <h2>Interested in working together?</h2>
@@ -366,53 +366,19 @@
                             <div class="button-content" id="button-content">
                                 <span class="view-text" id="resume-button-text">View Resume</span>
                                 <div class="icon-container">
-                                    <svg class="eye-closed" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    <!-- Same arrow as the ABOUT / PROJECTS pills: rests north-east,
+                                         swings to east on hover. -->
+                                    <svg class="btn-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Eye outline with smooth curves -->
-                                        <path
-                                            d="M2.5 12c1.8-3.2 5.1-5.5 9.5-5.5s7.7 2.3 9.5 5.5c.3.5.3 1 0 1.5-1.8 3.2-5.1 5.5-9.5 5.5s-7.7-2.3-9.5-5.5c-.3-.5-.3-1 0-1.5z"
-                                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" opacity="0.6" />
-
-                                        <!-- Eyelid closed line (rotated 180 degrees) -->
-                                        <path d="M4 12.8c2.5 1.5 5 2 8 2s5.5-0.5 8-2" stroke="currentColor"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-
-                                        <!-- Enhanced eyelashes (positioned below for closed eye) -->
-                                        <path
-                                            d="M6 13.5l-0.8 1.2M8.5 14l-0.3 1.5M12 14.2l0 1.3M15.5 14l0.3 1.5M18 13.5l0.8 1.2"
-                                            stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-
-                                        <!-- Additional shorter lashes for fullness -->
-                                        <path d="M7.2 13.8l-0.4 0.8M10 14.1l-0.1 1M14 14.1l0.1 1M16.8 13.8l0.4 0.8"
-                                            stroke="currentColor" stroke-width="1" stroke-linecap="round"
-                                            opacity="0.7" />
-
-                                        <!-- Strike-through line for "hidden" state -->
-                                        <path d="M3 3L21 21" stroke="currentColor" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" opacity="0.8" />
-                                    </svg>
-
-                                    <!-- Eye Open (Hover state) -->
-                                    <svg class="eye-open" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12 5C8.24 5 5.01 7.21 3.3 10.7c-.42.84-.42 1.82 0 2.66C5.01 16.79 8.24 19 12 19s6.99-2.21 8.7-5.66c.42-.84.42-1.82 0-2.66C18.99 7.21 15.76 5 12 5z"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke-width="1.5"
+                                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="1"
                                             stroke-linecap="round" stroke-linejoin="round" />
-                                        <!-- Lashes for more detail -->
-                                        <path d="M5 7L7 9" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M9 5L10 8" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M19 7L17 9" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M15 5L14 8" stroke-width="1.5" stroke-linecap="round" />
                                     </svg>
 
                                     <!-- Check Mark (Clicked state) -->
-                                    <svg class="check-mark" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    <svg class="check-mark" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20 6L9 17L4 12" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
+                                        <path d="M20 6L9 17L4 12" stroke="white" stroke-width="1"
+                                            stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </div>
                             </div>
