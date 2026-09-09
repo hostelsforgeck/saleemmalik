@@ -1593,6 +1593,27 @@ a:hover {
     animation: float 15s ease-in-out infinite;
 }
 
+/* Black-hole variant of the quote visual. The renderer composes its own
+   framing, bloom and starfield, so it opts out of the moon's offset, 1.7x
+   scale, float animation and glow overlay and simply fills the card. */
+.moon-container.quote-visual--blackhole {
+    top: 0;
+    right: 0;
+    scale: 1;
+    animation: none;
+    transform-origin: center center;
+}
+
+.moon-container.quote-visual--blackhole:after {
+    content: none;
+}
+
+.moon-container.quote-visual--blackhole canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 .like-button {
     display: flex;
     flex-direction: column;

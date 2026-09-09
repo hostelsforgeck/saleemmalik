@@ -390,15 +390,12 @@
         </div>
     </div>
 
-    <!-- Load Three.js and GSAP immediately for moon animation -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-    
     <!-- Load Lottie for animated icons -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     
-    <!-- Load moon immediately after libraries -->
-    <script defer src="./assets/js/index/moon.js"></script>
+    <!-- Quote card visual: loads ONLY the chosen one (black hole or moon).
+         three.js/TweenMax are pulled in on demand by the moon path. -->
+    <script defer src="./assets/js/index/quote-visual.js"></script>
     
     <!-- Other scripts -->
     <script defer src="./assets/js/index/like-button.js"></script>
@@ -434,7 +431,12 @@
         function createStars() {
             const container = document.getElementById('stars');
             if (!container) return;
-            
+
+            // The black hole renders its own starfield. quote-visual.js runs
+            // (deferred) before DOMContentLoaded, so by here we already know
+            // whether to skip building 40 animated nodes altogether.
+            if (document.querySelector('.quote-visual--blackhole')) return;
+
             const starCount = 40; // Number of stars
 
             for (let i = 0; i < starCount; i++) {
