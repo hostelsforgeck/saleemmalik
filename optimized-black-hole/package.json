@@ -1,0 +1,21 @@
+{
+  "name": "optimized-black-hole",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build-shaders.mjs && esbuild renderer.js --bundle --format=esm --minify --target=es2022 --outfile=../assets/js/index/blackhole.bundle.js",
+    "verify": "node verify-render.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "vgpu": "^0.4.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

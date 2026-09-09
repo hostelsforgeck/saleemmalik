@@ -11,7 +11,9 @@ const MOON_CONFIG = {
 const moonTexture = new Image();
 moonTexture.src = 'assets/img/moon/moon.webp';
 
-document.addEventListener("DOMContentLoaded", function() {
+// Runs on DOMContentLoaded when loaded eagerly, or immediately when
+// quote-visual.js injects this script after the document is already parsed.
+function initMoon() {
   new class {
     constructor(c) {
       this.c = c;
@@ -151,4 +153,10 @@ document.addEventListener("DOMContentLoaded", function() {
       this.r.setSize(this.c.offsetWidth, this.c.offsetHeight);
     }
   }(document.getElementById("moon-canvas"));
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initMoon);
+} else {
+  initMoon();
+}
